@@ -144,50 +144,6 @@
             margin: 5px 5px 5px 0;
         }
 
-        .recommendations {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px;
-            border-radius: 20px;
-            margin-top: 30px;
-        }
-
-        .recommendations h3 {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .recommendation-list {
-            list-style: none;
-            counter-reset: recommendation-counter;
-        }
-
-        .recommendation-list li {
-            counter-increment: recommendation-counter;
-            background: rgba(255, 255, 255, 0.1);
-            margin-bottom: 15px;
-            padding: 15px;
-            border-radius: 10px;
-            position: relative;
-            padding-left: 50px;
-        }
-
-        .recommendation-list li::before {
-            content: counter(recommendation-counter);
-            position: absolute;
-            left: 15px;
-            top: 15px;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            width: 25px;
-            height: 25px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-        }
 
         @media (max-width: 768px) {
             .chart-grid {
@@ -296,17 +252,6 @@
             </div>
         </div>
 
-        <div class="recommendations">
-            <h3>提言・改善案</h3>
-            <ul class="recommendation-list">
-                <li><strong>意識格差の解消:</strong> 関心の薄い層への効果的なアプローチ方法の開発</li>
-                <li><strong>若者の活用:</strong> 高い参加意欲を示す学生をSDGsアンバサダーとして活用</li>
-                <li><strong>飲食改善:</strong> 最も評価の低い飲食エリアの充実化</li>
-                <li><strong>海ごみ対策:</strong> 岡山県の最重要課題として重点的な取り組み</li>
-                <li><strong>学校連携強化:</strong> 教育機関との継続的なパートナーシップ構築</li>
-                <li><strong>企業プログラム:</strong> 成人層のエンゲージメント向上のための職場プログラム開発</li>
-            </ul>
-        </div>
     </div>
 
     <script>
@@ -338,7 +283,7 @@
         new Chart(ageCtx, {
             type: 'bar',
             data: {
-                labels: ['中学生以下', '高校生', '大学生', '20代', '30代', '40代', '50代', '60代', '70代以上'],
+                labels: ['中学生\n以下', '高校生', '大学生', '20代', '30代', '40代', '50代', '60代', '70代\n以上'],
                 datasets: [{
                     label: '参加者数',
                     data: [6, 4, 31, 15, 20, 12, 11, 14, 13],
@@ -351,7 +296,15 @@
                 maintainAspectRatio: false,
                 scales: {
                     y: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 5
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
                     }
                 }
             }
@@ -360,7 +313,7 @@
         // SDGsゴールチャート
         const sdgsCtx = document.getElementById('sdgsChart').getContext('2d');
         new Chart(sdgsCtx, {
-            type: 'horizontalBar',
+            type: 'bar',
             data: {
                 labels: [
                     '3. すべての人に健康と福祉を',
@@ -370,6 +323,7 @@
                     '1. 貧困をなくそう'
                 ],
                 datasets: [{
+                    label: '選択率(%)',
                     data: [15.9, 11.9, 11.1, 10.3, 7.9],
                     backgroundColor: ['#e74c3c', '#3498db', '#2ecc71', '#f39c12', '#9b59b6'],
                     borderRadius: 5
@@ -382,7 +336,12 @@
                 scales: {
                     x: {
                         beginAtZero: true,
-                        max: 20
+                        max: 20,
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        }
                     }
                 },
                 plugins: {
@@ -400,6 +359,7 @@
             data: {
                 labels: ['ゴミ分別', '節電・節水', 'マイバッグ・\nマイボトル', 'フードロス削減', '地産地消'],
                 datasets: [{
+                    label: '実践率(%)',
                     data: [54.8, 51.6, 47.6, 43.7, 23.8],
                     backgroundColor: ['#FF6B9D', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8'],
                     borderRadius: 5
@@ -411,7 +371,12 @@
                 scales: {
                     y: {
                         beginAtZero: true,
-                        max: 60
+                        max: 60,
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        }
                     }
                 },
                 plugins: {
